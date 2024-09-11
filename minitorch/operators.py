@@ -2,8 +2,8 @@
 
 import math
 
+
 # ## Task 0.1
-from typing import Callable, Iterable
 
 #
 # Implementation of a prelude of elementary functions.
@@ -35,6 +35,89 @@ from typing import Callable, Iterable
 # TODO: Implement for Task 0.1.
 
 
+def mul(x: float, y: float) -> float:
+    """Multiply two numbers"""
+    return x * y
+
+
+def id(x: float) -> float:
+    """Identity function"""
+    return x
+
+
+def add(x: float, y: float) -> float:
+    """Add two numbers"""
+    return x + y
+
+
+def neg(x: float) -> float:
+    """Negate a number"""
+    return -x
+
+
+def lt(x: float, y: float) -> bool:
+    """Check if x is less than y"""
+    return x < y
+
+
+def eq(x: float, y: float) -> bool:
+    """Check if x is equal to y"""
+    return x == y
+
+
+def max(x: float, y: float) -> float:
+    """Return the max of two numbers"""
+    return x if x > y else y
+
+
+def is_close(x: float, y: float) -> bool:
+    """Check if x is close to y"""
+    return abs(x - y) < 1e-2
+
+
+def sigmoid(x: float) -> float:
+    """Sigmoid function"""
+    if x >= 0:
+        return 1.0 / (1.0 + exp(neg(x)))
+    else:
+        return exp(x) / (1.0 + exp(x))
+
+
+def relu(x: float) -> float:
+    """ReLU function"""
+    return max(0, x)
+
+
+def log(x: float) -> float:
+    """Log function"""
+    return math.log(x)
+
+
+def exp(x: float) -> float:
+    """Exponential function"""
+    return math.exp(x)
+
+
+def inv(x: float) -> float:
+    """Inverse function"""
+    return 1 / x
+
+
+def log_back(x: float, z: float) -> float:
+    """Log back function"""
+    return 1 / x * z
+
+
+def inv_back(x: float, z: float) -> float:
+    """Inverse back function"""
+    return -1 / (x**2) * z
+
+
+def relu_back(x: float, z: float) -> float:
+    """ReLU back function"""
+    return 0 if x <= 0 else z
+
+
 # ## Task 0.3
 
 # Small practice library of elementary higher-order functions.
@@ -52,3 +135,23 @@ from typing import Callable, Iterable
 
 
 # TODO: Implement for Task 0.3.
+
+
+def negList(l: list) -> list:
+    """Negate a list"""
+    ...
+
+
+def addLists(l1: list, l2: list) -> list:
+    """Add two lists together"""
+    ...
+
+
+def sum(l: list) -> float:
+    """Sum lists"""
+    ...
+
+
+def prod(l: list) -> float:
+    """Take the product of lists"""
+    ...
