@@ -60,6 +60,11 @@ def lt(x: float, y: float) -> bool:
     return x < y
 
 
+def lte(x: float, y: float) -> bool:
+    """Check if x is less or equal than y"""
+    return x <= y
+
+
 def eq(x: float, y: float) -> bool:
     """Check if x is equal to y"""
     return x == y
