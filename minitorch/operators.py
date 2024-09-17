@@ -1,6 +1,7 @@
 """Collection of the core mathematical operators used throughout the code base."""
 
 import math
+from typing import Callable, Iterable
 
 
 # ## Task 0.1
@@ -142,21 +143,56 @@ def relu_back(x: float, z: float) -> float:
 # TODO: Implement for Task 0.3.
 
 
-def negList(l: list) -> list:
+def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[float]]:
+    """Map a function over a list"""
+
+    def apply(ls: Iterable[float]) -> Iterable[float]:
+        return [fn(el) for el in ls]
+
+    return apply
+
+
+def reduce(fn: Callable[[float, float], float]) -> Callable[[Iterable[float]], float]:
+    """Reduce a list with a function"""
+
+    def apply(ls: Iterable[float]) -> float:
+        if not ls:
+            return 0
+        ls = iter(ls)
+        value = next(ls)
+        for el in ls:
+            value = fn(value, el)
+        return value
+
+    return apply
+
+
+def zipWith(
+    fn: Callable[[float, float], float],
+) -> Callable[[Iterable[float], Iterable[float]], Iterable[float]]:
+    """Zip two lists with a function"""
+
+    def apply(l1: Iterable[float], l2: Iterable[float]) -> Iterable[float]:
+        return [fn(x, y) for x, y in zip(l1, l2)]
+
+    return apply
+
+
+def negList(l: list) -> Iterable[float]:
     """Negate a list"""
-    ...
+    return map(neg)(l)
 
 
-def addLists(l1: list, l2: list) -> list:
+def addLists(l1: list, l2: list) -> Iterable[float]:
     """Add two lists together"""
-    ...
+    return zipWith(add)(l1, l2)
 
 
-def sum(l: list) -> float:
+def sum(l: Iterable[float]) -> float:
     """Sum lists"""
-    ...
+    return reduce(add)(l)
 
 
 def prod(l: list) -> float:
     """Take the product of lists"""
-    ...
+    return reduce(mul)(l)
