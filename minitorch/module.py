@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 
 class Module:
@@ -32,12 +32,16 @@ class Module:
     def train(self) -> None:
         """Set the mode of this module and all descendent modules to `train`."""
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        for module in self.modules():
+            module.train()
+        self.training = True
 
     def eval(self) -> None:
         """Set the mode of this module and all descendent modules to `eval`."""
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        for module in self.modules():
+            module.eval()
+        self.training = False
 
     def named_parameters(self) -> Sequence[Tuple[str, Parameter]]:
         """Collect all the parameters of this module and its descendents.
@@ -48,12 +52,23 @@ class Module:
 
         """
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+
+        def _get_named_parameters(
+            parameters: Dict[str, Parameter],
+        ) -> List[Tuple[str, Parameter]]:
+            return [(k, v) for k, v in parameters.items()]
+
+        l = _get_named_parameters(self.__dict__["_parameters"])
+
+        for name, module in self.__dict__["_modules"].items():
+            l.extend([(f"{name}.{k}", v) for k, v in module.named_parameters()])
+
+        return l
 
     def parameters(self) -> Sequence[Parameter]:
         """Enumerate over all the parameters of this module and its descendents."""
         # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        return [v for (k, v) in self.named_parameters()]
 
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """Manually add a parameter. Useful helper for scalar parameters.
@@ -72,7 +87,7 @@ class Module:
         self.__dict__["_parameters"][k] = val
         return val
 
-    def __setattr__(self, key: str, val: Parameter) -> None:
+    def __setattr__(self, key: str, val: Parameter | Module) -> None:
         if isinstance(val, Parameter):
             self.__dict__["_parameters"][key] = val
         elif isinstance(val, Module):
@@ -89,6 +104,7 @@ class Module:
         return None
 
     def __call__(self, *args: Any, **kwargs: Any) -> Any:
+        """Forward function for the module."""
         return self.forward(*args, **kwargs)
 
     def __repr__(self) -> str:
