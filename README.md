@@ -6,3 +6,11 @@
 * Docs: https://minitorch.github.io/
 
 * Overview: https://minitorch.github.io/module0/module0/
+
+
+![alt text](newplot.png)
+```
+- linear.weight_0_0 = -7.41
+- linear.weight_1_0 = 0.06
+- LINEAR.BIAS_0 = 3.78
+```
