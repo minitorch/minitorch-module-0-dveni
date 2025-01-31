@@ -5,6 +5,35 @@ build-backend = "hatchling.build"
 [project]
 name = "minitorch"
 version = "0.5"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "colorama==0.4.3",
+    "hypothesis==6.54",
+    "numba==0.60",
+    "numpy==2.0.0",
+    "pre-commit==2.20.0",
+    "pytest-env>=1.1.4",
+    "pytest==8.3.2",
+    "pytest-runner==5.2",
+    "typing-extensions>=4.12.2",
+    "datasets==2.4.0",
+    "embeddings==0.0.8",
+    "plotly==4.14.3",
+    "pydot==1.4.1",
+    "python-mnist>=0.7",
+    "streamlit==1.12.0",
+    "streamlit-ace>=0.1.1",
+    "torch>=2.6.0",
+    "watchdog==1.0.2",
+    "altair==4.2.2",
+    "networkx==3.3",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+explicit = true
 
 [tool.pyright]
 include = ["**/minitorch"]
